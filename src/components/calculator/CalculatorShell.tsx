@@ -5,6 +5,7 @@ import { Tabs } from '@/components/ui/Tabs';
 import { PropertyTypeToggle } from './PropertyTypeToggle';
 import { NapkinForm } from './NapkinForm';
 import { ProFormaForm } from './ProFormaForm';
+import { AddressLookup } from './AddressLookup';
 import type { CalculatorMode } from '@/lib/finance/types';
 
 const modeTabs: { value: CalculatorMode; label: string }[] = [
@@ -17,6 +18,7 @@ export function CalculatorShell() {
 
   return (
     <div className="space-y-4">
+      <AddressLookup />
       <div className="flex flex-wrap items-center gap-3">
         <Tabs tabs={modeTabs} value={mode} onChange={setMode} />
         <PropertyTypeToggle />

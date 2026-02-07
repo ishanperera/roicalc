@@ -10,6 +10,7 @@ import type {
   EquityMetrics,
   SensitivityMatrix,
 } from '@/lib/finance/types';
+import type { PropertyLookupResult } from '@/lib/api/types';
 import { DEFAULT_PROFORMA, DEFAULT_NAPKIN } from '@/lib/finance/defaults';
 import { computeCoreMetrics } from '@/lib/finance/core-metrics';
 import { computeCommercialMetrics } from '@/lib/finance/commercial';
@@ -24,6 +25,12 @@ interface CalculatorState {
   propertyType: PropertyType;
   napkinInputs: NapkinInputs;
   proFormaInputs: ProFormaInputs;
+
+  // Address lookup
+  addressQuery: string;
+  propertyLookup: PropertyLookupResult | null;
+  lookupLoading: boolean;
+  lookupError: string | null;
 
   // Computed results
   coreMetrics: CoreMetrics | null;
@@ -44,6 +51,13 @@ interface CalculatorState {
   updateCommercialInputs: (inputs: Partial<ProFormaInputs['commercial']>) => void;
   updateExitInputs: (inputs: Partial<ProFormaInputs['exit']>) => void;
   recalculate: () => void;
+
+  // Address lookup actions
+  setAddressQuery: (query: string) => void;
+  applyPropertyLookup: (data: PropertyLookupResult) => void;
+  setLookupLoading: (loading: boolean) => void;
+  setLookupError: (error: string | null) => void;
+  clearLookup: () => void;
 }
 
 function computeAll(inputs: ProFormaInputs, propertyType: PropertyType) {
@@ -84,6 +98,10 @@ export const useCalculatorStore = create<CalculatorState>((set, get) => {
     propertyType: 'residential',
     napkinInputs: { ...DEFAULT_NAPKIN },
     proFormaInputs: { ...DEFAULT_PROFORMA },
+    addressQuery: '',
+    propertyLookup: null,
+    lookupLoading: false,
+    lookupError: null,
     ...initialResults,
 
     setMode: (mode) => {
@@ -186,5 +204,49 @@ export const useCalculatorStore = create<CalculatorState>((set, get) => {
       const results = computeAll(state.proFormaInputs, state.propertyType);
       set(results);
     },
+
+    setAddressQuery: (addressQuery) => set({ addressQuery }),
+
+    setLookupLoading: (lookupLoading) => set({ lookupLoading }),
+
+    setLookupError: (lookupError) => set({ lookupError }),
+
+    applyPropertyLookup: (data) => {
+      const state = get();
+
+      const napkinInputs: NapkinInputs = {
+        ...state.napkinInputs,
+        purchasePrice: data.estimatedValue,
+        monthlyRent: data.rentEstimate,
+      };
+
+      const proFormaInputs: ProFormaInputs = {
+        ...state.proFormaInputs,
+        purchase: { ...state.proFormaInputs.purchase, purchasePrice: data.estimatedValue },
+        income: { ...state.proFormaInputs.income, monthlyRent: data.rentEstimate },
+        expenses: {
+          ...state.proFormaInputs.expenses,
+          propertyTaxRate: data.propertyTaxRate,
+          insuranceAnnual: data.insuranceAnnual,
+        },
+      };
+
+      const results = computeAll(proFormaInputs, state.propertyType);
+      set({
+        napkinInputs,
+        proFormaInputs,
+        propertyLookup: data,
+        lookupLoading: false,
+        lookupError: null,
+        ...results,
+      });
+    },
+
+    clearLookup: () => set({
+      addressQuery: '',
+      propertyLookup: null,
+      lookupLoading: false,
+      lookupError: null,
+    }),
   };
 });
