@@ -22,11 +22,12 @@ export function ResultsDashboard() {
   const setResultsTab = useUIStore((s) => s.setResultsTab);
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-6">
+      <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Results</h2>
       <Tabs tabs={resultTabs} value={resultsTab} onChange={setResultsTab} />
 
       {resultsTab === 'metrics' && (
-        <div className="space-y-4">
+        <div className="space-y-6">
           <MetricsGrid />
           <GoalTracker />
         </div>

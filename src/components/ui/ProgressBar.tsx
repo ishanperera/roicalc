@@ -24,11 +24,13 @@ export function ProgressBar({ value, max, label, showPercent = true, className }
           )}
         </div>
       )}
-      <div className="h-2.5 w-full overflow-hidden rounded-full bg-gray-200 dark:bg-gray-700">
+      <div className="h-3 w-full overflow-hidden rounded-full bg-gray-100 dark:bg-gray-800">
         <div
           className={cn(
             'h-full rounded-full transition-all duration-500 ease-out',
-            isComplete ? 'bg-green-500' : 'bg-blue-600'
+            isComplete
+              ? 'bg-gradient-to-r from-green-500 to-green-400 shadow-sm shadow-green-500/20'
+              : 'bg-gradient-to-r from-blue-500 to-blue-600 shadow-sm shadow-blue-500/20'
           )}
           style={{ width: `${percent}%` }}
           role="progressbar"

@@ -55,7 +55,7 @@ export const NumericInput = forwardRef<HTMLInputElement, NumericInputProps>(
 
     return (
       <div className={cn('space-y-1', className)}>
-        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+        <label className="block text-[13px] font-medium text-gray-500 dark:text-gray-400">
           {label}
         </label>
         <div className="relative">
@@ -71,7 +71,7 @@ export const NumericInput = forwardRef<HTMLInputElement, NumericInputProps>(
             value={displayValue}
             onChange={handleChange}
             className={cn(
-              'w-full rounded-lg border border-gray-300 bg-white py-2 text-sm shadow-sm transition-colors focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100',
+              'w-full rounded-lg border border-gray-300 bg-white py-2 text-sm shadow-sm transition-all duration-200 hover:border-gray-400 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100 dark:hover:border-gray-500',
               prefix ? 'pl-7' : 'pl-3',
               suffix ? 'pr-8' : 'pr-3'
             )}
@@ -91,7 +91,7 @@ export const NumericInput = forwardRef<HTMLInputElement, NumericInputProps>(
             step={sliderStep}
             value={value}
             onChange={handleSlider}
-            className="mt-1 w-full accent-blue-600"
+            className="mt-1 w-full"
             aria-label={`${label} slider`}
           />
         )}

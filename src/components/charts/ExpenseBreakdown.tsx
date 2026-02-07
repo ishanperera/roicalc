@@ -8,6 +8,14 @@ import { formatCurrency } from '@/lib/formatters';
 
 const COLORS = ['#3b82f6', '#ef4444', '#f59e0b', '#10b981', '#8b5cf6', '#ec4899'];
 
+const tooltipStyle = {
+  borderRadius: 12,
+  border: 'none',
+  boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+  padding: '8px 12px',
+  fontSize: 12,
+};
+
 export function ExpenseBreakdown() {
   const inputs = useCalculatorStore((s) => s.proFormaInputs);
   const coreMetrics = useCalculatorStore((s) => s.coreMetrics);
@@ -55,7 +63,10 @@ export function ExpenseBreakdown() {
                 <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
               ))}
             </Pie>
-            <Tooltip formatter={(value) => formatCurrency(Number(value))} />
+            <Tooltip
+              formatter={(value) => formatCurrency(Number(value))}
+              contentStyle={tooltipStyle}
+            />
             <Legend wrapperStyle={{ fontSize: 12 }} />
           </PieChart>
         </ResponsiveContainer>

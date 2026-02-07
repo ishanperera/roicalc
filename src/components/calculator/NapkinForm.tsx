@@ -9,44 +9,47 @@ export function NapkinForm() {
   const updateNapkinInputs = useCalculatorStore((s) => s.updateNapkinInputs);
 
   return (
-    <Card>
-      <h3 className="mb-4 text-lg font-semibold text-gray-900 dark:text-gray-100">
-        Quick Analysis
-      </h3>
-      <p className="mb-6 text-sm text-gray-500 dark:text-gray-400">
-        Enter 3 values for an instant estimate using industry heuristics.
-      </p>
-      <div className="space-y-4">
-        <NumericInput
-          label="Purchase Price"
-          value={napkinInputs.purchasePrice}
-          onChange={(v) => updateNapkinInputs({ purchasePrice: v })}
-          mode="currency"
-          showSlider
-          sliderMin={50000}
-          sliderMax={2000000}
-          sliderStep={10000}
-        />
-        <NumericInput
-          label="Monthly Rent"
-          value={napkinInputs.monthlyRent}
-          onChange={(v) => updateNapkinInputs({ monthlyRent: v })}
-          mode="currency"
-          showSlider
-          sliderMin={500}
-          sliderMax={15000}
-          sliderStep={100}
-        />
-        <NumericInput
-          label="Interest Rate"
-          value={napkinInputs.interestRate}
-          onChange={(v) => updateNapkinInputs({ interestRate: v })}
-          mode="rate"
-          showSlider
-          sliderMin={2}
-          sliderMax={12}
-          sliderStep={0.125}
-        />
+    <Card padding="none">
+      <div className="h-[3px] bg-gradient-to-r from-blue-500 to-violet-500" />
+      <div className="p-4 sm:p-6">
+        <h3 className="mb-4 text-lg font-semibold text-gray-900 dark:text-gray-100">
+          Quick Analysis
+        </h3>
+        <p className="mb-6 text-sm text-gray-500 dark:text-gray-400">
+          Enter 3 values for an instant estimate using industry heuristics.
+        </p>
+        <div className="space-y-4">
+          <NumericInput
+            label="Purchase Price"
+            value={napkinInputs.purchasePrice}
+            onChange={(v) => updateNapkinInputs({ purchasePrice: v })}
+            mode="currency"
+            showSlider
+            sliderMin={50000}
+            sliderMax={2000000}
+            sliderStep={10000}
+          />
+          <NumericInput
+            label="Monthly Rent"
+            value={napkinInputs.monthlyRent}
+            onChange={(v) => updateNapkinInputs({ monthlyRent: v })}
+            mode="currency"
+            showSlider
+            sliderMin={500}
+            sliderMax={15000}
+            sliderStep={100}
+          />
+          <NumericInput
+            label="Interest Rate"
+            value={napkinInputs.interestRate}
+            onChange={(v) => updateNapkinInputs({ interestRate: v })}
+            mode="rate"
+            showSlider
+            sliderMin={2}
+            sliderMax={12}
+            sliderStep={0.125}
+          />
+        </div>
       </div>
     </Card>
   );

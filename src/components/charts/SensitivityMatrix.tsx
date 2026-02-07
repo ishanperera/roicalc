@@ -26,17 +26,17 @@ export function SensitivityMatrix() {
         {matrix.rowLabel} (rows) vs {matrix.colLabel} (columns)
       </p>
       <div className="overflow-x-auto -mx-4 px-4 sm:mx-0 sm:px-0">
-        <table className="w-full min-w-[480px] border-collapse text-xs">
+        <table className="w-full min-w-[480px] border-separate border-spacing-1 text-xs">
           <thead>
             <tr>
-              <th className="p-2 text-left font-medium text-gray-500 dark:text-gray-400">
+              <th className="p-2 text-left text-[11px] font-medium text-gray-500 dark:text-gray-400">
                 Exit Cap / Vacancy
               </th>
               {matrix.colValues.map((col, ci) => (
                 <th
                   key={ci}
                   className={cn(
-                    'p-2 text-center font-medium',
+                    'p-2 text-center text-[11px] font-medium',
                     ci === matrix.baseColIndex
                       ? 'text-blue-600 dark:text-blue-400'
                       : 'text-gray-500 dark:text-gray-400'
@@ -52,7 +52,7 @@ export function SensitivityMatrix() {
               <tr key={ri}>
                 <td
                   className={cn(
-                    'p-2 font-medium',
+                    'p-2 text-[11px] font-medium',
                     ri === matrix.baseRowIndex
                       ? 'text-blue-600 dark:text-blue-400'
                       : 'text-gray-500 dark:text-gray-400'
@@ -66,9 +66,9 @@ export function SensitivityMatrix() {
                     <td
                       key={ci}
                       className={cn(
-                        'p-2 text-center tabular-nums transition-colors',
+                        'rounded-md p-2 text-center tabular-nums transition-colors',
                         getCellColor(cell.irr),
-                        isBase && 'ring-2 ring-blue-500 ring-inset font-bold'
+                        isBase && 'ring-2 ring-blue-500 ring-inset font-bold shadow-md shadow-blue-500/20'
                       )}
                     >
                       {cell.irr.toFixed(1)}

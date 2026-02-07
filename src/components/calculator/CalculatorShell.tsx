@@ -19,6 +19,7 @@ export function CalculatorShell() {
   return (
     <div className="space-y-4">
       <AddressLookup />
+      <hr className="border-gray-200/60 dark:border-gray-700/40" />
       <div className="flex flex-wrap items-center gap-3">
         <Tabs tabs={modeTabs} value={mode} onChange={setMode} />
         <PropertyTypeToggle />

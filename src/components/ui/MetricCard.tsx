@@ -19,6 +19,13 @@ const healthColors: Record<Health, string> = {
   neutral: 'text-gray-900 dark:text-gray-100',
 };
 
+const healthBorders: Record<Health, string> = {
+  green: 'border-l-[3px] border-l-green-500',
+  yellow: 'border-l-[3px] border-l-yellow-500',
+  red: 'border-l-[3px] border-l-red-500',
+  neutral: 'border-l-[3px] border-l-transparent',
+};
+
 const trendIcons: Record<string, string> = {
   up: '\u2191',
   down: '\u2193',
@@ -27,12 +34,12 @@ const trendIcons: Record<string, string> = {
 
 export function MetricCard({ label, value, subtitle, health = 'neutral', trend, className }: MetricCardProps) {
   return (
-    <Card padding="sm" className={cn('flex flex-col gap-1', className)}>
+    <Card padding="sm" hover className={cn('flex flex-col gap-1 animate-fade-in', healthBorders[health], className)}>
       <span className="text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400">
         {label}
       </span>
       <div className="flex items-baseline gap-1.5">
-        <span className={cn('text-2xl font-bold tabular-nums', healthColors[health])}>
+        <span className={cn('text-[28px] font-bold tracking-tight tabular-nums', healthColors[health])}>
           {value}
         </span>
         {trend && (
